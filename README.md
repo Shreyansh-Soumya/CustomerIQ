@@ -248,5 +248,4 @@ CustomerIQ was collaboratively developed by the following team members:
   <br/>
   Turning Customer Data into Meaningful Business Insights.
   <br/><br/>
-  Built with ❤️ by Team CustomerIQ.
 </p>
