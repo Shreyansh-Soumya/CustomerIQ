@@ -6,10 +6,6 @@ An interactive machine learning application that uses **K-Means Clustering** to 
   <a href="https://shreyansh-soumya.github.io/CustomerIQ/">
     <strong>🚀 Live Demo</strong>
   </a>
-  &nbsp; | &nbsp;
-  <a href="https://github.com/Shreyansh-Soumya/CustomerIQ">
-    <strong>📂 GitHub Repository</strong>
-  </a>
 </p>
 
 ---
