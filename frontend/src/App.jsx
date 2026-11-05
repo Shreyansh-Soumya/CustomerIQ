@@ -1,142 +1,93 @@
+
 import { useEffect, useState } from "react";
-import { predictCluster } from "./utils/predict";
+
+import Navbar from "./components/Navbar";
+import StatsCards from "./components/StatsCards";
+import ClusterChart from "./components/ClusterChart";
+import ClusterDetails from "./components/ClusterDetails";
+import CustomerForm from "./components/CustomerForm";
+
+import "./App.css";
 
 function App() {
-
   const [model, setModel] = useState(null);
-
-  const [income, setIncome] = useState(50);
-  const [spending, setSpending] = useState(50);
-
-  const [prediction, setPrediction] = useState(null);
+  const [analytics, setAnalytics] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
+    async function loadData() {
+      try {
+        const [modelResponse, analyticsResponse] = await Promise.all([
+          fetch(`${import.meta.env.BASE_URL}model.json`),
+          fetch(`${import.meta.env.BASE_URL}cluster_stats.json`),
+        ]);
 
-    fetch(`${import.meta.env.BASE_URL}model.json`)
-      .then(res => res.json())
-      .then(data => setModel(data))
-      .catch(error => console.error(error));
+        if (!modelResponse.ok || !analyticsResponse.ok) {
+          throw new Error("Unable to load CustomerIQ data.");
+        }
 
+        const modelData = await modelResponse.json();
+        const analyticsData = await analyticsResponse.json();
+
+        setModel(modelData);
+        setAnalytics(analyticsData);
+      } catch (err) {
+        console.error(err);
+        setError(err.message);
+      }
+    }
+
+    loadData();
   }, []);
 
-  function handlePrediction(e) {
-
-    e.preventDefault();
-
-    if (!model) return;
-
-    const result = predictCluster(
-      Number(income),
-      Number(spending),
-      model
-    );
-
-    setPrediction(result);
-
+  if (error) {
+    return <div className="loading-screen">Error: {error}</div>;
   }
 
-  if (!model) {
-    return <h2>Loading Machine Learning Model...</h2>;
+  if (!model || !analytics) {
+    return <div className="loading-screen">Loading CustomerIQ...</div>;
   }
 
   return (
+    <div className="app-layout">
+      <Navbar />
 
-    <div className="min-h-screen p-8">
-
-      <header className="mb-10">
-
-        <h1 className="text-4xl font-bold">
-          CustomerIQ
-        </h1>
-
-        <p className="text-gray-400 mt-2">
-          AI-powered Customer Segmentation Platform
-        </p>
-
-      </header>
-
-      <div className="grid md:grid-cols-2 gap-8">
-
-        <section className="bg-slate-800 p-6 rounded-xl">
-
-          <h2 className="text-2xl font-semibold mb-6">
-            Customer Prediction
-          </h2>
-
-          <form onSubmit={handlePrediction}>
-
-            <label>Annual Income (in thousands)</label>
-
-            <input
-              type="number"
-              min="0"
-              value={income}
-              onChange={e => setIncome(e.target.value)}
-              className="w-full p-3 mt-2 mb-6 rounded bg-slate-700"
-              required
-            />
-
-            <label>Spending Score (1-100)</label>
-
-            <input
-              type="number"
-              min="1"
-              max="100"
-              value={spending}
-              onChange={e => setSpending(e.target.value)}
-              className="w-full p-3 mt-2 mb-6 rounded bg-slate-700"
-              required
-            />
-
-            <button
-              type="submit"
-              className="bg-blue-600 hover:bg-blue-700 p-3 rounded-lg w-full"
-            >
-              Predict Customer Segment
-            </button>
-
-          </form>
-
-        </section>
-
-        <section className="bg-slate-800 p-6 rounded-xl">
-
-          <h2 className="text-2xl font-semibold mb-6">
-            Prediction Result
-          </h2>
-
-          {prediction !== null ? (
-
-            <div>
-
-              <p className="text-gray-400">
-                Assigned Cluster
-              </p>
-
-              <h1 className="text-6xl font-bold text-green-400 mt-4">
-                {prediction + 1}
-              </h1>
-
-              <p className="mt-4 text-gray-300">
-                This customer belongs to Cluster {prediction + 1}.
-              </p>
-
-            </div>
-
-          ) : (
-
-            <p className="text-gray-400">
-              Enter customer details to see the predicted segment.
+      <main className="main-content" id="overview">
+        <header className="dashboard-header">
+          <div>
+            <span className="eyebrow">CUSTOMER INTELLIGENCE</span>
+            <h1>Analytics Overview</h1>
+            <p>
+              Understand your customers with machine learning-powered
+              segmentation.
             </p>
+          </div>
 
-          )}
+          <div className="model-status">
+            <span className="status-dot" />
+            Model Operational
+          </div>
+        </header>
 
-        </section>
+        <StatsCards data={analytics} />
 
-      </div>
+        <div className="dashboard-grid">
+          <ClusterChart clusters={analytics.clusters} />
 
+          <CustomerForm
+            model={model}
+            clusters={analytics.clusters}
+          />
+        </div>
+
+        <ClusterDetails clusters={analytics.clusters} />
+
+        <footer className="dashboard-footer">
+          <span>CustomerIQ · AI-powered Customer Segmentation</span>
+          <span>Powered by K-Means Clustering</span>
+        </footer>
+      </main>
     </div>
-
   );
 }
 

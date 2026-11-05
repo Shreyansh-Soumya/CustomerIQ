@@ -1,0 +1,62 @@
+{
+    "total_customers": 200,
+    "number_of_clusters": 5,
+    "silhouette_score": 0.5547,
+    "clusters": [
+        {
+            "id": 0,
+            "name": "Standard Customers",
+            "description": "Customers with moderate income and average spending habits.",
+            "recommendation": "Use loyalty programs and personalized offers to increase engagement.",
+            "customer_count": 81,
+            "percentage": 40.5,
+            "avg_income": 55.3,
+            "avg_spending": 49.52,
+            "avg_age": 42.72
+        },
+        {
+            "id": 1,
+            "name": "Premium Customers",
+            "description": "High-income customers with high spending activity.",
+            "recommendation": "Offer premium products, exclusive deals, and VIP rewards.",
+            "customer_count": 39,
+            "percentage": 19.5,
+            "avg_income": 86.54,
+            "avg_spending": 82.13,
+            "avg_age": 32.69
+        },
+        {
+            "id": 2,
+            "name": "High-Potential Customers",
+            "description": "Lower-income customers who demonstrate high spending activity.",
+            "recommendation": "Encourage loyalty with affordable bundles and targeted rewards.",
+            "customer_count": 22,
+            "percentage": 11.0,
+            "avg_income": 25.73,
+            "avg_spending": 79.36,
+            "avg_age": 25.27
+        },
+        {
+            "id": 3,
+            "name": "Conservative Customers",
+            "description": "High-income customers with relatively low spending activity.",
+            "recommendation": "Use personalized recommendations and premium introductory offers.",
+            "customer_count": 35,
+            "percentage": 17.5,
+            "avg_income": 88.2,
+            "avg_spending": 17.11,
+            "avg_age": 41.11
+        },
+        {
+            "id": 4,
+            "name": "Budget-Conscious Customers",
+            "description": "Lower-income customers with relatively low spending activity.",
+            "recommendation": "Promote discounts, value bundles, and affordable products.",
+            "customer_count": 23,
+            "percentage": 11.5,
+            "avg_income": 26.3,
+            "avg_spending": 20.91,
+            "avg_age": 45.22
+        }
+    ]
+}
