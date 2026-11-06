@@ -236,12 +236,6 @@ CustomerIQ was collaboratively developed by the following team members:
 4. **Shreyansh Soumya**
 5. **Ashish Kumar**
 
-## 🔗 Project Links
-
-- **Live Application:** [CustomerIQ Dashboard](https://shreyansh-soumya.github.io/CustomerIQ/)
-- **GitHub Repository:** [Shreyansh-Soumya/CustomerIQ](https://github.com/Shreyansh-Soumya/CustomerIQ)
-
----
 
 <p align="center">
   <strong>CustomerIQ</strong>
