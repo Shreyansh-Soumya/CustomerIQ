@@ -2,12 +2,47 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
+    <meta
+      name="description"
+      content="Explore five K-Means customer segments and classify a new customer from annual income and spending score."
+    />
+    <meta name="theme-color" content="#f7f3ef" />
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem("customeriq-theme");
+          var dark = stored
+            ? stored === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          document.documentElement.dataset.mode = dark ? "dark" : "light";
+          document
+            .querySelector('meta[name="theme-color"]')
+            .setAttribute("content", dark ? "#241f1c" : "#f7f3ef");
+        } catch (error) {
+          document.documentElement.dataset.mode = "light";
+        }
+      })();
+    </script>
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <title>CustomerIQ: Customer segmentation analytics</title>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <p>CustomerIQ needs JavaScript to load the segmentation model.</p>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
